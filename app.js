@@ -15,7 +15,7 @@ app.use(cors());
 // Or specify specific origins
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "http://dasarvn.com",
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
