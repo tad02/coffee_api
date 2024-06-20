@@ -10,16 +10,25 @@ var usersRouter = require("./routes/users");
 var apiRouter = require("./routes/api");
 
 var app = express();
-app.use(cors());
+const allowedOrigins = ["https://www.dasarvn.com", "http://dasarvn.com"];
 
-// Or specify specific origins
 app.use(
   cors({
-    origin: "http://dasarvn.com",
-    methods: ["GET", "POST"],
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); // Allow requests with no origin (like mobile apps or curl requests)
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg = `The CORS policy for this site does not allow access from the specified Origin.`;
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
+// Enable preflight requests for all routes
+app.options("*", cors());
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
