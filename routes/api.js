@@ -99,7 +99,7 @@ router.post("/orders", authenticateToken, async (req, res) => {
 
     const orderResult = await client.query(
       "INSERT INTO orders (user_id, total_price, status) VALUES ($1, $2, $3) RETURNING id",
-      [0, total, false]
+      [1, total, false]
     );
     const orderId = orderResult.rows[0].id;
 
