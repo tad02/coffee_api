@@ -11,6 +11,16 @@ var apiRouter = require("./routes/api");
 
 var app = express();
 app.use(cors());
+
+// Or specify specific origins
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
